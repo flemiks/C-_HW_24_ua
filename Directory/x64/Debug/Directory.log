@@ -1,0 +1,36 @@
+﻿  main.cpp
+D:\Program files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\xmemory(723,82): error C2280: 'std::unique_ptr<Directory,std::default_delete<Directory>>::unique_ptr(const std::unique_ptr<Directory,std::default_delete<Directory>> &)': attempting to reference a deleted function
+  (compiling source file 'main.cpp')
+  D:\Program files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\memory(3319,5):
+  see declaration of 'std::unique_ptr<Directory,std::default_delete<Directory>>::unique_ptr'
+  D:\Program files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\memory(3319,5):
+  'std::unique_ptr<Directory,std::default_delete<Directory>>::unique_ptr(const std::unique_ptr<Directory,std::default_delete<Directory>> &)': function was explicitly deleted
+  D:\Program files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\xmemory(723,82):
+  the template instantiation context (the oldest one first) is
+  	F:\21\Directory\Directory\main.cpp(186,32):
+  	see reference to class template instantiation 'std::vector<std::unique_ptr<Directory,std::default_delete<Directory>>,std::allocator<std::unique_ptr<Directory,std::default_delete<Directory>>>>' being compiled
+  	D:\Program files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\vector(680,5):
+  	while compiling class template member function 'std::vector<std::unique_ptr<Directory,std::default_delete<Directory>>,std::allocator<std::unique_ptr<Directory,std::default_delete<Directory>>>>::vector(const std::vector<std::unique_ptr<Directory,std::default_delete<Directory>>,std::allocator<std::unique_ptr<Directory,std::default_delete<Directory>>>> &)'
+  		F:\21\Directory\Directory\main.cpp(130,3):
+  		see the first reference to 'std::vector<std::unique_ptr<Directory,std::default_delete<Directory>>,std::allocator<std::unique_ptr<Directory,std::default_delete<Directory>>>>::vector' in 'DirectoryList::load'
+  	D:\Program files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\vector(684,9):
+  	see reference to function template instantiation 'void std::vector<std::unique_ptr<Directory,std::default_delete<Directory>>,std::allocator<std::unique_ptr<Directory,std::default_delete<Directory>>>>::_Construct_n<std::unique_ptr<Directory,std::default_delete<Directory>>*const &,std::unique_ptr<Directory,std::default_delete<Directory>>*const &>(const unsigned __int64,std::unique_ptr<Directory,std::default_delete<Directory>> *const &,std::unique_ptr<Directory,std::default_delete<Directory>> *const &)' being compiled
+  	D:\Program files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\vector(2082,36):
+  	see reference to function template instantiation 'std::unique_ptr<Directory,std::default_delete<Directory>> *std::_Uninitialized_copy<std::unique_ptr<Directory,std::default_delete<Directory>>*,std::unique_ptr<Directory,std::default_delete<Directory>>*,std::allocator<std::unique_ptr<Directory,std::default_delete<Directory>>>>(_InIt,_Se,std::unique_ptr<Directory,std::default_delete<Directory>> *,_Alloc &)' being compiled
+          with
+          [
+              _InIt=std::unique_ptr<Directory,std::default_delete<Directory>> *,
+              _Se=std::unique_ptr<Directory,std::default_delete<Directory>> *,
+              _Alloc=std::allocator<std::unique_ptr<Directory,std::default_delete<Directory>>>
+          ]
+  	D:\Program files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\xmemory(1855,17):
+  	see reference to function template instantiation 'void std::_Uninitialized_backout_al<std::allocator<std::unique_ptr<Directory,std::default_delete<Directory>>>>::_Emplace_back<std::unique_ptr<Directory,std::default_delete<Directory>>&>(std::unique_ptr<Directory,std::default_delete<Directory>> &)' being compiled
+  	D:\Program files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\xmemory(1801,35):
+  	see reference to function template instantiation 'void std::_Default_allocator_traits<_Alloc>::construct<_Ty,std::unique_ptr<Directory,std::default_delete<Directory>>&>(_Alloc &,_Objty *const ,std::unique_ptr<Directory,std::default_delete<Directory>> &)' being compiled
+          with
+          [
+              _Alloc=std::allocator<std::unique_ptr<Directory,std::default_delete<Directory>>>,
+              _Ty=std::unique_ptr<Directory,std::default_delete<Directory>>,
+              _Objty=std::unique_ptr<Directory,std::default_delete<Directory>>
+          ]
+  

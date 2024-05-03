@@ -29,8 +29,8 @@ public:
 		if (ownerName.empty()) {
 			throw invalid_argument("Owner Name couldn't be empty");
 		}
-		if (!all_of(ownerName.begin(), ownerName.end(), ::isalpha)) {
-			throw invalid_argument("Owner Name could contain only letters");
+		if (any_of(ownerName.begin(), ownerName.end(), ::isdigit)) {
+			throw invalid_argument("Owner Name couldn't contain digits");
 		}
 		this->ownerName = ownerName;
 	}
@@ -73,7 +73,7 @@ public:
 	void save(ofstream &out) const {
 		out << companyName << "," << ownerName << "," << phoneNumber << "," << address << "," << businessActivity << "\n";
 	}
-	void load(ifstream &in) {
+	void load(istream &in) {
 		string line;
 		if (getline(in, line)) {
 			stringstream ss(line);
@@ -108,7 +108,7 @@ public:
 		this->fileName = fileName;
 	}
 	void addDirectory(string companyName, string ownerName, string phoneNumber, string address, string businessActivity) {
-		directoryList.push_back(make_unique<Directory>(companyName, ownerName, phoneNumber, address, businessActivity));
+		directoryList.push_back(make_shared<Directory>(companyName, ownerName, phoneNumber, address, businessActivity));
 	}
 	void save() {
 		ofstream out(fileName);
@@ -119,16 +119,22 @@ public:
 			directory->save(out);
 		}
 	}
-	vector<unique_ptr<Directory>> load() {
+	vector<shared_ptr<Directory>> load() {
 		ifstream in(fileName);
+		string line;
 		if (!in.is_open()) {
 			throw runtime_error("Failed to open file for writing: " + fileName);
 		}
-		for (auto& directory : directoryList) {
-			directory->load(in);
+		while (getline(in, line))
+		{
+			auto directory = make_shared<Directory>();
+			stringstream ss(line);
+			(*directory).load(ss);
+			directoryList.push_back(directory);
 		}
 		return directoryList;
 	}
+
 	void findCompanyName(string companyName) {
 		bool isFind = false;
 		for (auto& directory : directoryList) {
@@ -183,16 +189,31 @@ public:
 		}
 	}
 private:
-	vector<unique_ptr<Directory>> directoryList;
+	vector<shared_ptr<Directory>> directoryList;
 	string fileName;
 };
 
 int main() {
 	try {
 		DirectoryList d1("Tech Innovations");
-		d1.addDirectory("Tech Innovations", "John Doe", "1234567890", "123 Tech Street", "Technology");
+		d1.addDirectory("Tech Innovations", "John1Doe", "1234567890", "123 Tech Street", "Technology");
+		d1.addDirectory("Page Turners", "Alice Monroe", "3245678901", "456 Book Blvd", "Retail");
+		d1.addDirectory("Daily Brews", "Mohamed Ali", "2345678901", "789 Coffee Road", "Cafe");
+		d1.addDirectory("Tech Repairs", "Sara Lee", "1234567891", "123 Fix Street", "Technology Services");
+		d1.addDirectory("Justitia Law", "Robert King", "9876543210", "321 Justice Ave", "Legal Services");
+		d1.addDirectory("Bloom Flowers", "Fiona Chen", "1234598765", "654 Floral St", "Florist");
+		d1.addDirectory("Green Thumb Landscaping", "Carlos Herb", "1234578901", "321 Green Road", "Landscaping");
+		d1.addDirectory("AutoFix Mechanics", "Nina Morris", "9876501234", "789 Engine Block", "Automotive Repairs");
+		d1.addDirectory("Fit & Fine Gym", "Leo Armstrong", "4567890123", "456 Workout Way", "Health & Fitness");
+		d1.addDirectory("Clicks Digital", "Emma Clark", "2345601234", "101 Web Street", "Digital Marketing");
+		d1.addDirectory("Happy Paws Vet", "Annie Smith", "8901234567", "123 Pet Lane", "Veterinary Services");
+		d1.addDirectory("Tesla", "Elon Mask", "8901234567", "123 Pet Lane", "Car creating");
 		d1.save();
-		d1.load();
+		DirectoryList d2("Tech Innovations");
+		d2.load();
+		d2.printAll();
+		cout << endl;
+		d2.findBusinessActivity("Digital Marketing");
 
 
 	}
